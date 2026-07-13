@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangGraph LocalAI TV Pipeline — AY Automate</title>
+    <meta name="description" content="A three-stage news production pipeline with LangGraph: headlines → video → bulletin. Human approval gates, checkpoints, and error recovery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <span class="brand-icon">📺</span>
+                <span class="brand-text">LocalAI TV</span>
+                <span class="brand-badge">LangGraph</span>
+            </a>
+            <div class="nav-links">
+                <a href="#architecture">Architecture</a>
+                <a href="#features">Features</a>
+                <a href="#setup">Setup</a>
+                <a href="#api">API</a>
+                <a href="#projects">Projects</a>
+                <a href="https://github.com/nagarjunak-pixel/langgraph-localai-tv" class="nav-btn" target="_blank">⭐ GitHub</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">AY Automate · Open Data Science</div>
+            <h1>LangGraph<br><span class="gradient-text">LocalAI TV Pipeline</span></h1>
+            <p class="hero-subtitle">
+                A three-stage news production pipeline that <strong>branches, loops, waits for human input</strong>, 
+                and <strong>recovers from errors</strong> — built with LangGraph for real production workflows.
+            </p>
+            <div class="hero-actions">
+                <a href="#setup" class="btn btn-primary">
+                    <span>🚀</span> Get Started
+                </a>
+                <a href="https://github.com/nagarjunak-pixel/langgraph-localai-tv" class="btn btn-secondary" target="_blank">
+                    <span>📦</span> View Source
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">3</span>
+                    <span class="stat-label">Pipeline Stages</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">✓</span>
+                    <span class="stat-label">Human Approval</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">♻</span>
+                    <span class="stat-label">Error Recovery</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">💾</span>
+                    <span class="stat-label">Checkpoints</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="section">
+        <div class="container">
+            <h2 class="section-title">Pipeline Architecture</h2>
+            <p class="section-subtitle">Three stages with human approval gates and checkpoint persistence</p>
+            
+            <div class="pipeline-diagram">
+                <div class="pipeline-stage" data-stage="1">
+                    <div class="stage-icon">📡</div>
+                    <div class="stage-content">
+                        <h3>Stage 1: Fetch Headlines</h3>
+                        <p>RSS feeds from AP, TG, and India tech sources. Deduplication and keyword filtering.</p>
+                        <code>nodes/headline_fetcher.py</code>
+                    </div>
+                    <div class="stage-checkpoint">💾 Checkpoint</div>
+                </div>
+                
+                <div class="pipeline-arrow">
+                    <svg viewBox="0 0 24 24" width="32" height="32"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/></svg>
+                </div>
+                
+                <div class="pipeline-stage pipeline-gate" data-stage="gate">
+                    <div class="stage-icon">🧑‍💼</div>
+                    <div class="stage-content">
+                        <h3>Human Approval Gate</h3>
+                        <p>Interactive CLI review or auto-approve mode. Approval logging for audit trail.</p>
+                        <code>human_approval.py</code>
+                    </div>
+                    <div class="stage-checkpoint">📋 Audit Log</div>
+                </div>
+                
+                <div class="pipeline-arrow">
+                    <svg viewBox="0 0 24 24" width="32" height="32"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/></svg>
+                </div>
+                
+                <div class="pipeline-stage" data-stage="2">
+                    <div class="stage-icon">🎬</div>
+                    <div class="stage-content">
+                        <h3>Stage 2: Generate Video</h3>
+                        <p>Script generation + raw video creation. Mock mode or real API (Synthesia/D-ID).</p>
+                        <code>nodes/video_generator.py</code>
+                    </div>
+                    <div class="stage-checkpoint">💾 Checkpoint</div>
+                </div>
+                
+                <div class="pipeline-arrow">
+                    <svg viewBox="0 0 24 24" width="32" height="32"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/></svg>
+                </div>
+                
+                <div class="pipeline-stage" data-stage="3">
+                    <div class="stage-icon">📺</div>
+                    <div class="stage-content">
+                        <h3>Stage 3: Compile Bulletin</h3>
+                        <p>Final news bulletin assembly with intro, segments, and outro. JSON + text output.</p>
+                        <code>nodes/bulletin_compiler.py</code>
+                    </div>
+                    <div class="stage-checkpoint">💾 Checkpoint</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Checkpoint Persistence</h3>
+                    <p>SQLite-based state recovery. Resume any failed run from exactly where it stopped. Never lose progress.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧑‍💼</div>
+                    <h3>Human-in-the-Loop</h3>
+                    <p>Interactive CLI approval with Rich formatting. Review and approve/reject headlines before video generation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Error Recovery</h3>
+                    <p>Each stage handles failures gracefully. Bad feeds? Skipped. Failed video? Logged. Pipeline continues.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📰</div>
+                    <h3>RSS Integration</h3>
+                    <p>Configurable feed sources for AP, Telangana, and India tech news. Keyword filtering and deduplication.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <h3>Video Generation</h3>
+                    <p>Mock mode for demos and testing. Hook into real APIs (Synthesia, D-ID, HeyGen) for production.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Audit Trail</h3>
+                    <p>Every approval decision is logged with timestamps. Full pipeline state history in SQLite.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Setup Section -->
+    <section id="setup" class="section">
+        <div class="container">
+            <h2 class="section-title">Quick Start</h2>
+            <p class="section-subtitle">Get running in under 2 minutes</p>
+
+            <div class="setup-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Clone & Install</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Terminal</span>
+                                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            </div>
+                            <pre><code>git clone https://github.com/nagarjunak-pixel/langgraph-localai-tv.git
+cd langgraph-localai-tv
+pip install -r requirements.txt</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Configure Environment</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Terminal</span>
+                                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            </div>
+                            <pre><code>cp .env.example .env
+# Edit .env with your API keys (optional — works without them)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Run the Pipeline</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Terminal</span>
+                                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            </div>
+                            <pre><code># Interactive mode (with human approval)
+python pipeline.py
+
+# Auto-approve mode (for demos/testing)
+python pipeline.py --auto
+
+# Resume a failed run
+python pipeline.py --resume abc12345</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Reference Section -->
+    <section id="api" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">API Reference</h2>
+            <div class="api-grid">
+                <div class="api-card">
+                    <h3><code>pipeline.py</code></h3>
+                    <div class="api-method">
+                        <code>run_pipeline(auto_approve=False, resume_run_id=None)</code>
+                        <p>Execute the full 3-stage pipeline. Returns final <code>PipelineState</code>.</p>
+                    </div>
+                </div>
+                <div class="api-card">
+                    <h3><code>nodes/headline_fetcher.py</code></h3>
+                    <div class="api-method">
+                        <code>fetch_headlines(feeds=None, max_headlines=10)</code>
+                        <p>Fetch and deduplicate headlines from RSS feeds.</p>
+                    </div>
+                    <div class="api-method">
+                        <code>filter_headlines(headlines, keywords=None)</code>
+                        <p>Filter headlines by keyword match.</p>
+                    </div>
+                </div>
+                <div class="api-card">
+                    <h3><code>nodes/video_generator.py</code></h3>
+                    <div class="api-method">
+                        <code>generate_video_script(headline)</code>
+                        <p>Create a video script from a headline dict.</p>
+                    </div>
+                    <div class="api-method">
+                        <code>batch_generate_videos(headlines)</code>
+                        <p>Generate video segments for all approved headlines.</p>
+                    </div>
+                </div>
+                <div class="api-card">
+                    <h3><code>nodes/bulletin_compiler.py</code></h3>
+                    <div class="api-method">
+                        <code>compile_bulletin(videos, bulletin_title=None)</code>
+                        <p>Compile video segments into a final news bulletin.</p>
+                    </div>
+                    <div class="api-method">
+                        <code>format_bulletin_text(bulletin)</code>
+                        <p>Format bulletin as readable text output.</p>
+                    </div>
+                </div>
+                <div class="api-card">
+                    <h3><code>checkpoints.py</code></h3>
+                    <div class="api-method">
+                        <code>CheckpointStore(db_path="./checkpoints.db")</code>
+                        <p>SQLite checkpoint persistence. Methods: <code>save()</code>, <code>load()</code>, <code>list_runs()</code>, <code>invalidate()</code>.</p>
+                    </div>
+                </div>
+                <div class="api-card">
+                    <h3><code>human_approval.py</code></h3>
+                    <div class="api-method">
+                        <code>request_approval_cli(headlines)</code>
+                        <p>Interactive CLI approval with Rich tables.</p>
+                    </div>
+                    <div class="api-method">
+                        <code>request_approval_auto(headlines)</code>
+                        <p>Auto-approve for CI/CD and testing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">AY Automate · All Projects</h2>
+            <p class="section-subtitle">Four AI framework demos for production agent pipelines</p>
+            <div class="projects-grid">
+                <div class="project-card project-active">
+                    <div class="project-badge">Current</div>
+                    <div class="project-icon">📺</div>
+                    <h3>LangGraph LocalAI TV</h3>
+                    <p>3-stage news pipeline with checkpoints, human approval, and error recovery.</p>
+                    <div class="project-tech">LangGraph · Python</div>
+                </div>
+                <a href="CREWAI_NETLIFY_URL" class="project-card project-link">
+                    <div class="project-icon">📰</div>
+                    <h3>CrewAI Telugu Newsroom</h3>
+                    <p>Multi-agent newsroom crew: Researcher → Script Writer → Fact-Checker.</p>
+                    <div class="project-tech">CrewAI · Python</div>
+                </a>
+                <a href="FIRECRAWL_NETLIFY_URL" class="project-card project-link">
+                    <div class="project-icon">🔥</div>
+                    <h3>Firecrawl NEXUS RSS</h3>
+                    <p>Web scraping aggregator for AP/TG hyperlocal news sourcing.</p>
+                    <div class="project-tech">Firecrawl · Python</div>
+                </a>
+                <a href="DEERFLOW_NETLIFY_URL" class="project-card project-link">
+                    <div class="project-icon">🦌</div>
+                    <h3>DeerFlow Research Agent</h3>
+                    <p>Long-horizon research with sub-agents, memory, and skills.</p>
+                    <div class="project-tech">DeerFlow · Python</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="brand-icon">📺</span>
+                    <span>LocalAI TV Pipeline</span>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/nagarjunak-pixel/langgraph-localai-tv" target="_blank">GitHub</a>
+                    <span class="footer-sep">·</span>
+                    <a href="https://github.com/nagarjunak-pixel" target="_blank">AY Automate</a>
+                    <span class="footer-sep">·</span>
+                    <span>Surya Agentic Academy</span>
+                </div>
+                <div class="footer-copy">© 2026 AY Automate · MIT License</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
