@@ -77,7 +77,7 @@ langgraph-localai-tv/
 
 ## 📖 Documentation
 
-**Live docs:** [View on Netlify](#) *(link updated after deployment)*
+**Live docs: [https://langgraph-localai-tv.netlify.app](https://langgraph-localai-tv.netlify.app)
 
 ## 🎓 Learning Points
 
