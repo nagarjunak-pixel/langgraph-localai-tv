@@ -2,7 +2,6 @@
 
 **A three-stage news production pipeline built with LangGraph** — designed for real workflows that branch, loop, wait for human input, and recover from errors.
 
-> Part of the [AY Automate](https://github.com/nagarjunak-pixel) AI framework demo series.
 
 ## 🏗 Architecture
 
